@@ -20,7 +20,7 @@ class Book(Base):
     isbn: Mapped[int] = mapped_column(Integer(), unique=True, index=True, nullable=True)
     author_id: Mapped[int] = mapped_column(ForeignKey("author.id"))
     description: Mapped[str] = mapped_column(Text, nullable=True, index=False)
-    completed_at: Mapped[datetime] = mapped_column(
+    finished_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         nullable=True,
     )

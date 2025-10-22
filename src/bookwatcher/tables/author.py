@@ -18,7 +18,7 @@ class Author(Base):
     )
     first_name: Mapped[str] = mapped_column(String(255))
     last_name: Mapped[str] = mapped_column(String(255))
-    birthdate: Mapped[datetime] = mapped_column(
+    birthday: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         server_default=func.now(),
     )
