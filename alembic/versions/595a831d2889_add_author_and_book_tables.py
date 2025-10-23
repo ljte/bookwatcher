@@ -57,14 +57,16 @@ def upgrade() -> None:
         sa.Column("title", sa.String(255)),
         sa.Column(
             "isbn",
-            sa.Integer(),
+            sa.BigInteger(),
             unique=True,
             index=True,
             nullable=True,
         ),
         sa.Column(
             "author_id",
-            sa.ForeignKey("author.id"),
+            sa.String(26),
+            nullable=False,
+            index=True,
         ),
         sa.Column(
             "description",
@@ -78,9 +80,17 @@ def upgrade() -> None:
             nullable=True,
         ),
     )
+    op.create_foreign_key(
+        "book_author_id_fkey",
+        Book.__tablename__,
+        Author.__tablename__,
+        ["author_id"],
+        ["id"],
+    )
 
 
 def downgrade() -> None:
     """Downgrade schema."""
+    op.drop_constraint("book_author_id_fkey", Book.__tablename__)
     op.drop_table(Book.__tablename__)
     op.drop_table(Author.__tablename__)

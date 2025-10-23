@@ -1,21 +1,28 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
+from bookwatcher.api.database import DatabaseAdapter
 from bookwatcher.tables.author import Author
 from bookwatcher.tables.book import Book
-from bookwatcher.tables.declarative_base import Base
 
-engine = create_engine('sqlite+pysqlite:///:memory:', echo=True)
+engine = create_engine("postgresql+psycopg2://bookwatcher:password@localhost:5434/bookwatcher", echo=True)
 
 if __name__ == '__main__':
-    Base.metadata.create_all(engine)
+    database_adapter = DatabaseAdapter(
+        "postgresql",
+        "psycopg2",
+        "bookwatcher",
+        "password",
+        "localhost",
+        5434,
+        "bookwatcher",
+    )
 
-    with Session(engine) as session:
+    with database_adapter.make_session() as session:
         author = Author(
             first_name="John",
             last_name="Doe",
             books=[
-                Book(title="The Lord of the Rings", isbn=1234567890123),
                 Book(title="Harry Potter", isbn=9876543210987),
             ]
         )
