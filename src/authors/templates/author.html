@@ -1,0 +1,14 @@
+<html>
+    <body>
+
+        This is the page about {{ author.fullname }}
+
+        <ul>
+        {% for book in author.books.all %}
+            <li><a href="{% url 'books:about' book.id %}"> {{ book.title }} </a></li>
+        {% endfor %}
+        </ul>
+
+
+    </body>
+</html>

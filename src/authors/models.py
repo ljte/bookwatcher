@@ -9,6 +9,11 @@ class Author(models.Model):
     birthday: datetime = models.DateTimeField(null=True, blank=True)
     description: str = models.TextField(null=True, blank=True)
 
-    class Meta:
-        table_name = "author"
+    objects = models.Manager()
 
+    class Meta:
+        db_table = "author"
+
+    @property
+    def fullname(self) -> str:
+        return f"{self.first_name} {self.second_name}"

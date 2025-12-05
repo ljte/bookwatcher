@@ -17,5 +17,7 @@ class Book(models.Model):
         on_delete=models.PROTECT,
     )
 
+    objects = models.Manager()
+
     class Meta:
-        db_name = "book"
+        db_table = "book"

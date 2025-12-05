@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ book.title }}</title>
+</head>
+<body>
+
+This page is about {{ book.title }} by <a href="{% url 'authors:about' book.author.id %}"> {{ book.author.fullname }} </a>
+
+</body>
+</html>
